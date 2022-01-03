@@ -1,0 +1,14 @@
+.difficulty {
+    position: absolute;
+    margin: 0px;
+    left: 50%;
+    font-size: 32px;
+}
+
+#easy {
+    left: 39%;
+}
+
+#hard {
+    left: 65%;
+}
