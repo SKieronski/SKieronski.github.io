@@ -12,13 +12,35 @@
 } 
 
 #keyboard_div {
+    position: relative;
     font-size: 0; /* get rid of whitespace between keys */
     text-align: center;
 }
 
 .keyboard {
-    /* padding: 0; */
-    margin: 0;
-    height: 20px;
+    height: 100px;
+    width: 40px;
+    box-shadow: 0 1px #999;
+}
+
+.keyboard:active {
+    transform: translateY(1px);
+    box-shadow: 0 -1px #999;
+}
+
+#white_key {
+    background-color: white;
+}
+
+#black_key {
+    position: absolute;
     background-color: black;
+    border: none;
+    height: 60px;
+    width: 20px;
+    /* transform: translateX(-10px); */
+}
+
+#black_key:active {
+    transform: translate()
 }
