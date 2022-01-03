@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 # Simon plays Piano
-=======
-# Memories
->>>>>>> b53115c (Style the difficulty buttons.)
+Variation of the game Simon. The computer plays a series of notes. The player must mimic those keys played or else they lose!
