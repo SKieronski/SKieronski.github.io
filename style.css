@@ -1,14 +1,24 @@
+#difficulty_div {
+    text-align: center;
+}
+
 .difficulty {
-    position: absolute;
-    margin: 0px;
-    left: 50%;
     font-size: 32px;
 }
 
-#easy {
-    left: 39%;
+#score {
+    font-size: 32px;
+    text-align: center;
+} 
+
+#keyboard_div {
+    font-size: 0; /* get rid of whitespace between keys */
+    text-align: center;
 }
 
-#hard {
-    left: 65%;
+.keyboard {
+    /* padding: 0; */
+    margin: 0;
+    height: 20px;
+    background-color: black;
 }
