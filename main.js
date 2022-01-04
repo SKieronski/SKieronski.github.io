@@ -9,31 +9,31 @@ const numKeys = 5; //total number of keys
 //Number of objects will be equal to the game mode selected
 //objects will have a key name, audio src, and randomly assigned color.
 let keyFirst = {
-    name: "C",
+    name: "c",
     audioSrc: "",
     color: "red"
 }
 
 let keySecond = {
-    name: "CS",
+    name: "cs",
     audioSrc: "",
     color: "orange"
 }
 
 let keyThird = {
-    name: "D",
+    name: "d",
     audioSrc: "",
     color: "yellow"
 }
 
 let keyFourth = {
-    name: "DS",
+    name: "ds",
     audioSrc: "",
     color: "green"
 }
 
 let keyFifth = {
-    name: "E",
+    name: "e",
     audioSrc: "",
     color: "blue"
 }
@@ -56,3 +56,4 @@ function playKey(key) {
 //check if the right key was pressed
 //when the key is pressed it plays the associated audio.
 
+//Need function to do the key checking?
