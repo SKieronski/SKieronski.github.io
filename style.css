@@ -30,12 +30,12 @@
     box-shadow: 0 -1px #999;
 }
 
-#white_key {
+#c, #d, #e {
     background-color: white;
     z-index: 1;
 }
 
-#black_key {
+#cs, #ds {
     position: absolute;
     background-color: black;
     border: none;

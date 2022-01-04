@@ -51,6 +51,7 @@ function playKey(key) {
     let note = new Audio(key.audioSrc);
     note.play();
 }
+
 //add event listeners to each key
 //check if the right key was pressed
 //when the key is pressed it plays the associated audio.
