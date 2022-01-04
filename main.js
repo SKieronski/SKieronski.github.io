@@ -57,3 +57,6 @@ function playKey(key) {
 //when the key is pressed it plays the associated audio.
 
 //Need function to do the key checking?
+
+//Need one play function for computer and a different one for the player.
+//var button = getElementByID(button) then do button.click() to trigger computer function
