@@ -11,6 +11,15 @@
     text-align: center;
 } 
 
+#start_div {
+    text-align: center;
+}
+
+#start {
+    font-size: 32px;
+    margin: 50px;
+}
+
 #keyboard_div {
     position: relative;
     font-size: 0;  /* get rid of whitespace between keys */
@@ -30,12 +39,12 @@
     box-shadow: 0 -1px #999;
 }
 
-#c, #d, #e {
+#c5, #d5, #e5 {
     background-color: white;
     z-index: 1;
 }
 
-#cs, #ds {
+#c-5, #d-5 {
     position: absolute;
     background-color: black;
     border: none;
