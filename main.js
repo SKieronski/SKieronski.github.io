@@ -4,8 +4,8 @@ let seriesN = 1; //number of notes to play in series
 let gameMode = "easy"; //game difficulty
 let score = 0; //how many series have successfully been completed
 const numKeys = 5; //total number of keys
-let chosenKeys = [];
-let checker = 0;
+let chosenKeys = []; //array of keys that the player will need to choose correctly to beat the game
+let checker = 0; //keeps track of where the player is at in the series
 
 //Setup array of key objects
 //Number of objects will be equal to the game mode selected
@@ -67,7 +67,6 @@ async function playKeySeries() {
     for(let i = 0; i < chosenKeys.length; i++) {
         changeKeyColor(chosenKeys[i]);
         await playKey(chosenKeys[i]);
-        console.log("yeet");
         resetKeyColor(chosenKeys[i]);
     }
 }
@@ -97,7 +96,6 @@ function resetKeyColor(key) {
 function chooseKey() {
     let rand = Math.floor(Math.random() * 5);
     chosenKeys.push(myKeys[rand]);
-    console.log(chosenKeys);
 }
 
 //add event listeners to each key
