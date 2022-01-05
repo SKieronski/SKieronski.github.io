@@ -11,31 +11,31 @@ let checker = 0;
 //Number of objects will be equal to the game mode selected
 //objects will have a key name, audio src, and randomly assigned color.
 let keyFirst = {
-    name: "c",
+    name: "c5",
     audioSrc: "audio/c5.mp3",
     color: "red"
 }
 
 let keySecond = {
-    name: "cs",
+    name: "c-5",
     audioSrc: "audio/c-5.mp3",
     color: "orange"
 }
 
 let keyThird = {
-    name: "d",
+    name: "d5",
     audioSrc: "audio/d5.mp3",
     color: "yellow"
 }
 
 let keyFourth = {
-    name: "ds",
+    name: "d-5",
     audioSrc: "audio/d-5.mp3",
     color: "green"
 }
 
 let keyFifth = {
-    name: "e",
+    name: "e5",
     audioSrc: "audio/e5.mp3",
     color: "blue"
 }
@@ -43,6 +43,9 @@ let keyFifth = {
 //Array holding our key objects
 let myKeys = [keyFirst, keySecond, keyThird, keyFourth, keyFifth];
 
+//HTML keyboard button elements in an array
+let docKeys = document.getElementsByClassName("keyboard");
+console.log(docKeys);
 //Setup keys as new buttons and add to empty div? Can just start with keys in the div and manipulate those.
 
 //add code to play a series of notes starting with 1 note
@@ -51,12 +54,6 @@ let myKeys = [keyFirst, keySecond, keyThird, keyFourth, keyFifth];
 //Once player presses the right keys, next series of notes will be played.
 //Is this where async timing comes into play? For giving the player a time limit.
 function playKey(key) {
-    let note = new Audio(key.audioSrc);
-    note.play();
-    return note;
-}
-
-function playKeyTest(key) {
     return new Promise((resolve) => {
         let note = new Audio(key.audioSrc);
         note.play();
@@ -68,15 +65,34 @@ function playKeyTest(key) {
 //This will need to change the color of the keys too and needs async functionality
 async function playKeySeries() {
     for(let i = 0; i < chosenKeys.length; i++) {
-        await playKeyTest(chosenKeys[i]);
+        changeKeyColor(chosenKeys[i]);
+        await playKey(chosenKeys[i]);
+        console.log("yeet");
+        resetKeyColor(chosenKeys[i]);
     }
 }
 
 //Change the color of a specific key document element to the key object's color value
-function changeKeyColor(docKey, myKey) {
-    docKey.style.backgroundColor = myKey.color;
+function changeKeyColor(key) {
+    for(let i = 0; i < docKeys.length; i++) {
+        if(docKeys[i].id == key.name) {
+            docKeys[i].style.backgroundColor = key.color;
+        }
+    }
 }
 
+//Clear the key color after the async function rolls through
+function resetKeyColor(key) {
+    for(let i = 0; i < docKeys.length; i++) {
+        if(docKeys[i].id == key.name) {
+            if(key.name.charAt(1) === "-") {
+                docKeys[i].style.backgroundColor = "black";
+            } else {
+                docKeys[i].style.backgroundColor = "white";
+            }
+        }
+    }
+}
 //Add a key to the series challenge
 function chooseKey() {
     let rand = Math.floor(Math.random() * 5);
@@ -87,7 +103,6 @@ function chooseKey() {
 //add event listeners to each key
 //check if the right key was pressed
 //when the key is pressed it plays the associated audio.
-let docKeys = document.getElementsByClassName("keyboard");
 for(let i = 0; i < docKeys.length; i++) {
     docKeys[i].addEventListener("click", () => {
         playKey(myKeys[i]);
