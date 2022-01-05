@@ -123,6 +123,7 @@ for(let i = 0; i < docKeys.length; i++) {
 //When the player clicks the start button, the game begins.
 let startB = document.querySelector("#start");
 startB.addEventListener("click", () => {
+    startB.style.visibility = "hidden";
     chooseKey();
     playKeySeries();
 })
