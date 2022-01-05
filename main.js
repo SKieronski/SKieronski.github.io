@@ -1,9 +1,5 @@
-//Default game mode will be easy
 //Initialize global variables
-let seriesN = 1; //number of notes to play in series
-let gameMode = "easy"; //game difficulty
 let score = 0; //how many series have successfully been completed
-const numKeys = 5; //total number of keys
 let chosenKeys = []; //array of keys that the player will need to choose correctly to beat the game
 let checker = 0; //keeps track of where the player is at in the series
 
