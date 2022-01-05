@@ -2,7 +2,7 @@
 let score = 0; //how many series have successfully been completed
 let chosenKeys = []; //array of keys that the player will need to choose correctly to beat the game
 let checker = 0; //keeps track of where the player is at in the series
-
+let gameStarted = false; //used to allow player to interact with the keyboard
 //Setup array of key objects
 //Number of objects will be equal to the game mode selected
 //objects will have a key name, audio src, and randomly assigned color.
@@ -65,6 +65,7 @@ async function playKeySeries() {
         await playKey(chosenKeys[i]);
         resetKeyColor(chosenKeys[i]);
     }
+    gameStarted = true; //once the computer plays all the keys we allow the player to play again.
 }
 
 //Change the color of a specific key document element to the key object's color value
@@ -113,20 +114,23 @@ function finalResults() {
 //when the key is pressed it plays the associated audio.
 for(let i = 0; i < docKeys.length; i++) {
     docKeys[i].addEventListener("click", () => {
-        playKey(myKeys[i]);
-        if(myKeys[i].name === chosenKeys[checker].name) { //the player picked the right key in the series
-            if(checker === chosenKeys.length - 1) { //the player beat that series so update the score and add more keys to the challenge list
-                checker = 0;
-                score++;
-                displayScore();
-                chooseKey();
-                setTimeout(playKeySeries, 1500); //start the key series after 1.5 seconds
-            } else { //the player still has more keys in the series to go
-                checker++;
+        if(gameStarted) {
+            playKey(myKeys[i]);
+            if(myKeys[i].name === chosenKeys[checker].name) { //the player picked the right key in the series
+                if(checker === chosenKeys.length - 1) { //the player beat that series so update the score and add more keys to the challenge list
+                    gameStarted = false;
+                    checker = 0;
+                    score++;
+                    displayScore();
+                    chooseKey();
+                    setTimeout(playKeySeries, 1500); //start the key series after 1.5 seconds
+                } else { //the player still has more keys in the series to go
+                    checker++;
+                }
+            } else { //the player picked the wrong key and the game is over
+                gameStarted = false;
+                finalResults();
             }
-        } else { //the player picked the wrong key and the game is over
-            console.log("missed");
-            finalResults();
         }
     });
 }
@@ -137,6 +141,7 @@ startB.addEventListener("click", () => {
     startB.style.visibility = "hidden";
     score = 0;
     displayScore();
+    gameStarted = true;
     chooseKey();
     playKeySeries();
 })
