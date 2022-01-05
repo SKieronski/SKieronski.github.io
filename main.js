@@ -53,14 +53,22 @@ let myKeys = [keyFirst, keySecond, keyThird, keyFourth, keyFifth];
 function playKey(key) {
     let note = new Audio(key.audioSrc);
     note.play();
+    return note;
+}
+
+function playKeyTest(key) {
+    return new Promise((resolve) => {
+        let note = new Audio(key.audioSrc);
+        note.play();
+        note.onended = resolve; //resolve is a function so this works with onended, resolve passes back nothing to the promise object since we just want to play the audio asynchronously
+    })
 }
 
 //Play all the keys in the chosenKeys array
 //This will need to change the color of the keys too and needs async functionality
-function playKeySeries() {
+async function playKeySeries() {
     for(let i = 0; i < chosenKeys.length; i++) {
-        let note = new Audio(chosenKeys[i].audioSrc);
-        note.play();
+        await playKeyTest(chosenKeys[i]);
     }
 }
 
@@ -83,19 +91,17 @@ let docKeys = document.getElementsByClassName("keyboard");
 for(let i = 0; i < docKeys.length; i++) {
     docKeys[i].addEventListener("click", () => {
         playKey(myKeys[i]);
-        if(myKeys[i].name === chosenKeys[checker].name) {
+        if(myKeys[i].name === chosenKeys[checker].name) { //the player picked the right key in the series
             if(checker === chosenKeys.length - 1) { //the player beat that series so update the score and add more keys to the challenge list
                 checker = 0;
                 score++;
                 document.getElementById("score").innerHTML = `Score: ${score}`;
                 chooseKey();
-                playKeySeries();
-                console.log("yay")
-            } else {
+                setTimeout(playKeySeries, 1500); //start the key series after 1.5 seconds
+            } else { //the player still has more keys in the series to go
                 checker++;
-                console.log("next");
             }
-        } else {
+        } else { //the player picked the wrong key and the game is over
             console.log("missed");
         }
     });
@@ -105,11 +111,5 @@ for(let i = 0; i < docKeys.length; i++) {
 let startB = document.querySelector("#start");
 startB.addEventListener("click", () => {
     chooseKey();
-    playKey(chosenKeys[0]);
+    playKeySeries();
 })
-
-
-//Need function to do the key checking?
-
-//Need one play function for computer and a different one for the player.
-//var button = getElementByID(button) then do button.click() to trigger computer function
