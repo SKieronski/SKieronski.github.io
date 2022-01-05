@@ -45,7 +45,7 @@ let myKeys = [keyFirst, keySecond, keyThird, keyFourth, keyFifth];
 
 //HTML keyboard button elements in an array
 let docKeys = document.getElementsByClassName("keyboard");
-console.log(docKeys);
+
 //Setup keys as new buttons and add to empty div? Can just start with keys in the div and manipulate those.
 
 //add code to play a series of notes starting with 1 note
@@ -98,6 +98,20 @@ function chooseKey() {
     chosenKeys.push(myKeys[rand]);
 }
 
+//update the score html and display it
+function displayScore() {
+    document.getElementById("score").innerHTML = `Score: ${score}`;
+}
+
+//Add game over screen and reset vars
+function finalResults() {
+    document.getElementById("score").innerHTML = `GAME OVER. Final Score: ${score}`;
+    checker = 0;
+    chosenKeys = [];
+    startB.style.visibility = "visible";
+    startB.innerHTML = "Retry?"
+}
+
 //add event listeners to each key
 //check if the right key was pressed
 //when the key is pressed it plays the associated audio.
@@ -108,7 +122,7 @@ for(let i = 0; i < docKeys.length; i++) {
             if(checker === chosenKeys.length - 1) { //the player beat that series so update the score and add more keys to the challenge list
                 checker = 0;
                 score++;
-                document.getElementById("score").innerHTML = `Score: ${score}`;
+                displayScore();
                 chooseKey();
                 setTimeout(playKeySeries, 1500); //start the key series after 1.5 seconds
             } else { //the player still has more keys in the series to go
@@ -116,6 +130,7 @@ for(let i = 0; i < docKeys.length; i++) {
             }
         } else { //the player picked the wrong key and the game is over
             console.log("missed");
+            finalResults();
         }
     });
 }
@@ -124,6 +139,8 @@ for(let i = 0; i < docKeys.length; i++) {
 let startB = document.querySelector("#start");
 startB.addEventListener("click", () => {
     startB.style.visibility = "hidden";
+    score = 0;
+    displayScore();
     chooseKey();
     playKeySeries();
 })
