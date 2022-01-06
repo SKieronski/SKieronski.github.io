@@ -3,6 +3,7 @@ let score = 0; //how many series have successfully been completed
 let chosenKeys = []; //array of keys that the player will need to choose correctly to beat the game
 let checker = 0; //keeps track of where the player is at in the series
 let gameStarted = false; //used to allow player to interact with the keyboard
+let myStartSpan = document.querySelector("#start-span");
 
 //Setup array of key objects
 //Number of objects will be equal to the game mode selected
@@ -106,8 +107,9 @@ function finalResults() {
     document.getElementById("score").innerHTML = `GAME OVER. Final Score: ${score}`;
     checker = 0;
     chosenKeys = [];
+    startB.style.opacity = 1;
     startB.style.visibility = "visible";
-    startB.innerHTML = "Retry?"
+    myStartSpan.innerHTML = "Retry? "
 }
 
 //add event listeners to each key
@@ -141,6 +143,8 @@ for(let i = 0; i < docKeys.length; i++) {
 //When the player clicks the start button, the game begins.
 let startB = document.querySelector("#start");
 startB.addEventListener("click", () => {
+    startB.style.transition = "0.25s";
+    startB.style.opacity = 0;
     startB.style.visibility = "hidden";
     score = 0;
     displayScore();
