@@ -4,7 +4,7 @@ let chosenKeys = []; //array of keys that the player will need to choose correct
 let checker = 0; //keeps track of where the player is at in the series
 let gameStarted = false; //used to allow player to interact with the keyboard
 let myStartSpan = document.querySelector("#start-span");
-
+let myScore = document.getElementById("score");
 //Setup array of key objects
 //Number of objects will be equal to the game mode selected
 //objects will have a key name, audio src, and randomly assigned color.
@@ -91,6 +91,7 @@ function resetKeyColor(key) {
         }
     }
 }
+
 //Add a key to the series challenge
 function chooseKey() {
     let rand = Math.floor(Math.random() * 5);
@@ -99,17 +100,29 @@ function chooseKey() {
 
 //update the score html and display it
 function displayScore() {
-    document.getElementById("score").innerHTML = `Score: ${score}`;
+    console.log(myScore);
+    myScore.innerHTML = `Score: ${score}`;
+    myScore.style.opacity = 1;
+    myScore.style.visibility = "visible";
+    console.log(myScore);
 }
 
-//Add game over screen and reset vars
+//unhide the keyboard
+function displayKeyboard() {
+    for (let i = 0; i < docKeys.length; i++) {
+        docKeys[i].style.opacity = 1;
+        docKeys[i].style.visibility = "visible";
+    }
+}
+
+//Add game over screen and reset vars if the player wants to try again
 function finalResults() {
     document.getElementById("score").innerHTML = `GAME OVER. Final Score: ${score}`;
     checker = 0;
     chosenKeys = [];
     startB.style.opacity = 1;
     startB.style.visibility = "visible";
-    myStartSpan.innerHTML = "Retry? "
+    myStartSpan.innerHTML = "Retry? ";
 }
 
 //add event listeners to each key
@@ -148,7 +161,7 @@ startB.addEventListener("click", () => {
     startB.style.visibility = "hidden";
     score = 0;
     displayScore();
-    gameStarted = true;
+    displayKeyboard();
     chooseKey();
-    playKeySeries();
+    setTimeout(playKeySeries, 1000);
 })

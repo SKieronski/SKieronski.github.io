@@ -9,6 +9,9 @@ body {
     text-align: center;
     color: white;
     font-family: 'Dancing Script', cursive;
+    opacity: 0;
+    transition: all 0.5s;
+    visibility: hidden;
 } 
 
 #start_div {
@@ -50,6 +53,9 @@ body {
     width: 40px;
     box-shadow: 0 1px #999;
     padding: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s;
 }
 
 .keyboard:active {
