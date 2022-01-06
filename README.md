@@ -13,4 +13,6 @@ Interact with the keyboard through left clicking your mouse/touchpad. Click star
 - Javascript
 - HTML
 - CSS
+- Background Image from https://unsplash.com/wallpapers/nature/night-sky
+  
 
