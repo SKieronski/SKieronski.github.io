@@ -115,7 +115,9 @@ function finalResults() {
 for(let i = 0; i < docKeys.length; i++) {
     docKeys[i].addEventListener("click", () => {
         if(gameStarted) {
+            changeKeyColor(myKeys[i]);
             playKey(myKeys[i]);
+            setTimeout(resetKeyColor, 1000, myKeys[i]);
             if(myKeys[i].name === chosenKeys[checker].name) { //the player picked the right key in the series
                 if(checker === chosenKeys.length - 1) { //the player beat that series so update the score and add more keys to the challenge list
                     gameStarted = false;
