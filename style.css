@@ -3,9 +3,12 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 #score {
     font-size: 32px;
     text-align: center;
+    color: white;
+    font-family: 'Dancing Script', cursive;
 } 
 
 #start_div {
@@ -15,6 +18,24 @@ body {
 #start {
     font-size: 32px;
     margin: 50px;
+    font-family: 'Dancing Script', cursive;
+    color: white;
+    background: none;
+    border: none;
+    padding: 0;
+    /* transition: all 0.25s; */
+}
+
+#start span:after {
+    content: url("images/music_note.png");
+    position: absolute;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: 0.25s;
+}
+
+#start:hover span:after {
+    opacity: 1;
 }
 
 #keyboard_div {
