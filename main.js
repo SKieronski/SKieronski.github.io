@@ -7,7 +7,7 @@ const myStartSpan = document.querySelector("#start-span");
 let myScore = document.getElementById("score");
 const docKeys = document.getElementsByClassName("keyboard"); //HTML keyboard button elements in an array
 const startB = document.querySelector("#start"); //start button
-const mSheetDiv = document.getElementById("notesplosion-div"); //sheet music div
+const mSheetDiv = document.getElementById("music-sheet-div"); //sheet music div
 let mSheetDivCheck = 2; //this is needed to help specify the correct mSheetDiv child node to change when the player misses.
 
 //Setup array of key objects
@@ -130,6 +130,8 @@ function finalResults() {
     } else {
         mSheetDiv.childNodes[checker + mSheetDivCheck].src = "images/music_note_2_green.png";
     }
+    mSheetDiv.style.transition = "all 0.5s";
+    mSheetDiv.style.opacity = 1;
     mSheetDiv.style.visibility = "visible";
     checker = 0;
     mSheetDivCheck = 2;
@@ -168,6 +170,8 @@ for(let i = 0; i < docKeys.length; i++) {
 
 //When the player clicks the start button, the game begins.
 startB.addEventListener("click", () => {
+    mSheetDiv.style.transition = "none";
+    mSheetDiv.style.opacity = 0;
     mSheetDiv.style.visibility = "hidden";
     while(mSheetDiv.firstChild) {
         mSheetDiv.removeChild(mSheetDiv.lastChild);
