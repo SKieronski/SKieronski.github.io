@@ -58,6 +58,7 @@ let myKeys = [keyFirst, keySecond, keyThird, keyFourth, keyFifth];
 function playKey(key) {
     return new Promise((resolve) => {
         let note = new Audio(key.audioSrc);
+        note.volume = 0.50;
         note.play();
         note.onended = resolve; //resolve is a function so this works with onended, resolve passes back nothing to the promise object since we just want to play the audio asynchronously
     })
