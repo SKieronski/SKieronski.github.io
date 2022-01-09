@@ -3,8 +3,13 @@ let score = 0; //how many series have successfully been completed
 let chosenKeys = []; //array of keys that the player will need to choose correctly to beat the game
 let checker = 0; //keeps track of where the player is at in the series
 let gameStarted = false; //used to allow player to interact with the keyboard
-let myStartSpan = document.querySelector("#start-span");
+const myStartSpan = document.querySelector("#start-span");
 let myScore = document.getElementById("score");
+const docKeys = document.getElementsByClassName("keyboard"); //HTML keyboard button elements in an array
+const startB = document.querySelector("#start"); //start button
+const mSheetDiv = document.getElementById("notesplosion-div"); //sheet music div
+let mSheetDivCheck = 2; //this is needed to help specify the correct mSheetDiv child node to change when the player misses.
+
 //Setup array of key objects
 //Number of objects will be equal to the game mode selected
 //objects will have a key name, audio src, and randomly assigned color.
@@ -41,8 +46,7 @@ let keyFifth = {
 //Array holding our key objects
 let myKeys = [keyFirst, keySecond, keyThird, keyFourth, keyFifth];
 
-//HTML keyboard button elements in an array
-let docKeys = document.getElementsByClassName("keyboard");
+
 
 //Setup keys as new buttons and add to empty div? Can just start with keys in the div and manipulate those.
 
@@ -96,15 +100,15 @@ function resetKeyColor(key) {
 function chooseKey() {
     let rand = Math.floor(Math.random() * 5);
     chosenKeys.push(myKeys[rand]);
+    createBars();
+    createMusicNote(chosenKeys[chosenKeys.length - 1]);
 }
 
 //update the score html and display it
 function displayScore() {
-    console.log(myScore);
     myScore.innerHTML = `Score: ${score}`;
     myScore.style.opacity = 1;
     myScore.style.visibility = "visible";
-    console.log(myScore);
 }
 
 //unhide the keyboard
@@ -118,11 +122,18 @@ function displayKeyboard() {
 //Add game over screen and reset vars if the player wants to try again
 function finalResults() {
     document.getElementById("score").innerHTML = `GAME OVER. Final Score: ${score}`;
-    checker = 0;
-    chosenKeys = [];
     startB.style.opacity = 1;
     startB.style.visibility = "visible";
     myStartSpan.innerHTML = "Retry? ";
+    if(chosenKeys[checker].name.charAt(1) === "-"){
+        mSheetDiv.childNodes[checker + mSheetDivCheck].src = "images/music_sharp_note_green.png";
+    } else {
+        mSheetDiv.childNodes[checker + mSheetDivCheck].src = "images/music_note_2_green.png";
+    }
+    mSheetDiv.style.visibility = "visible";
+    checker = 0;
+    mSheetDivCheck = 2;
+    chosenKeys = [];
 }
 
 //add event listeners to each key
@@ -138,12 +149,14 @@ for(let i = 0; i < docKeys.length; i++) {
                 if(checker === chosenKeys.length - 1) { //the player beat that series so update the score and add more keys to the challenge list
                     gameStarted = false;
                     checker = 0;
+                    mSheetDivCheck = 2;
                     score++;
                     displayScore();
                     chooseKey();
                     setTimeout(playKeySeries, 1500); //start the key series after 1.5 seconds
                 } else { //the player still has more keys in the series to go
                     checker++;
+                    mSheetDivCheck++;
                 }
             } else { //the player picked the wrong key and the game is over
                 gameStarted = false;
@@ -154,14 +167,57 @@ for(let i = 0; i < docKeys.length; i++) {
 }
 
 //When the player clicks the start button, the game begins.
-let startB = document.querySelector("#start");
 startB.addEventListener("click", () => {
+    mSheetDiv.style.visibility = "hidden";
+    while(mSheetDiv.firstChild) {
+        mSheetDiv.removeChild(mSheetDiv.lastChild);
+    }
     startB.style.transition = "0.25s";
     startB.style.opacity = 0;
     startB.style.visibility = "hidden";
     score = 0;
     displayScore();
     displayKeyboard();
+    createStartSheet();
     chooseKey();
     setTimeout(playKeySeries, 1000);
-})
+});
+
+function createBars(){
+    let bars = document.createElement("img");
+    bars.src = "images/music_bars.png";
+    bars.style.zIndex = 1;
+    bars.style.paddingBottom = "10px";
+    mSheetDiv.appendChild(bars);
+}
+
+function createStartSheet() {
+    let startSheet = document.createElement("img");
+    startSheet.src = "images/sheet_start.png";
+    startSheet.style.zIndex = 1;
+    startSheet.style.paddingBottom = "10px";
+    mSheetDiv.appendChild(startSheet);
+}
+
+function createMusicNote(key) {
+    let mNote = document.createElement("img");
+    mNote.style.position = "absolute";
+    mNote.style.zIndex = 2;
+    if(key.name === "c5") {
+        mNote.src = "images/music_note_2.png";
+        mNote.style.transform = "translate(-20px, -10px)";
+    } else if(key.name === "c-5") {
+        mNote.src = "images/music_sharp_note.png";
+        mNote.style.transform = "translate(-30px, -9px)";
+    } else if(key.name === "d5") {
+        mNote.src = "images/music_note_2.png";
+        mNote.style.transform = "translate(-20px, -14px)";
+    } else if(key.name === "d-5") {
+        mNote.src = "images/music_sharp_note.png";
+        mNote.style.transform = "translate(-30px, -13px)";
+    } else if(key.name === "e5") {
+        mNote.src = "images/music_note_2.png";
+        mNote.style.transform = "translate(-20px, -18px)";
+    }
+    mSheetDiv.appendChild(mNote);
+}
