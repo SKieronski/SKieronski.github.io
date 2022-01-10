@@ -80,4 +80,5 @@ body {
 #music-sheet-div {
     visibility: hidden;
     transition: all 0.5s;
+    text-align: center;
 }
