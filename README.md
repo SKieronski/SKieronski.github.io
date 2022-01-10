@@ -8,8 +8,8 @@ https://skieronski.github.io/
 Interact with the keyboard through left clicking your mouse/touchpad. Click start to begin!
 
 ## Screenshot(s)
-![Mid-battle](./screenshots/2)
-![Game Over!](~/Desktop/SEIR-1213/unit1/projects/SKieronski.github.io/screenshots/1)
+![Mid-battle](/screenshots/2)
+![Game Over!](/screenshots/1)
 
 ## Technologies Used
 - Javascript
